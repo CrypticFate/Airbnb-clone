@@ -1,0 +1,5 @@
+{
+  "name": "Airbnb Homepage Clone",
+  "description": "A fully functional, responsive recreation of the Airbnb homepage built with React, TypeScript, and Tailwind CSS. It features a mock backend for property listings, functional filters for categories, dates, and guests, and includes multilingual support for English and Bangla.",
+  "requestFramePermissions": []
+}
