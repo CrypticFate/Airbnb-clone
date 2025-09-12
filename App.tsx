@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Header onFilterChange={handleFilterChange} />
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pt-40">
         <CategoryBar
           selectedCategory={filters.category}
           onSelectCategory={(category) => handleFilterChange({ category })}
