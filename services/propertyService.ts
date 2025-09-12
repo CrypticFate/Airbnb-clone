@@ -30,6 +30,15 @@ export const fetchProperties = async (filters: FilterOptions): Promise<Property[
         queryParams.append('guests', totalGuests.toString());
       }
     }
+    
+    // --- FIX START: Add check-in and check-out dates to the query ---
+    if (filters.checkIn) {
+      queryParams.append('checkIn', filters.checkIn.toISOString());
+    }
+    if (filters.checkOut) {
+      queryParams.append('checkOut', filters.checkOut.toISOString());
+    }
+    // --- FIX END ---
 
     // Add other potential filters
     queryParams.append('limit', '20');
@@ -55,6 +64,8 @@ export const fetchProperties = async (filters: FilterOptions): Promise<Property[
     return [];
   }
 };
+
+// ... (the rest of the file remains the same)
 
 export const fetchPropertyById = async (id: string): Promise<Property | null> => {
   try {

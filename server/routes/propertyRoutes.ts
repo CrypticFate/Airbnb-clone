@@ -14,6 +14,8 @@ router.get('/', async (req, res) => {
       maxPrice,
       minRating,
       guests,
+      checkIn,    // <-- FIX: Added checkIn
+      checkOut,   // <-- FIX: Added checkOut
       page = 1,
       limit = 20,
     } = req.query;
@@ -31,6 +33,30 @@ router.get('/', async (req, res) => {
         { title: { $regex: location, $options: 'i' } },
       ];
     }
+    
+    if (guests) {
+      filter['capacity.guests'] = { $gte: Number(guests) };
+    }
+
+    // --- FIX START: Add date availability filtering ---
+    // This logic finds properties that do NOT have any bookings that overlap
+    // with the requested checkIn and checkOut dates.
+    if (checkIn && checkOut) {
+      const requestedCheckIn = new Date(checkIn as string);
+      const requestedCheckOut = new Date(checkOut as string);
+
+      filter.bookings = {
+        $not: {
+          $elemMatch: {
+            // An overlap occurs if a booking starts before the checkout date
+            // AND ends after the check-in date.
+            startDate: { $lt: requestedCheckOut },
+            endDate: { $gt: requestedCheckIn },
+          },
+        },
+      };
+    }
+    // --- FIX END ---
 
     if (minPrice || maxPrice) {
       filter.price = {};
@@ -40,10 +66,6 @@ router.get('/', async (req, res) => {
 
     if (minRating) {
       filter.rating = { $gte: Number(minRating) };
-    }
-
-    if (guests) {
-      filter['capacity.guests'] = { $gte: Number(guests) };
     }
 
     // Calculate pagination
@@ -72,6 +94,8 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error fetching properties', error });
   }
 });
+
+// ... (the rest of the file remains the same)
 
 // GET /api/properties/:id - Get single property
 router.get('/:id', async (req, res) => {
@@ -158,5 +182,6 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Error deleting property', error });
   }
 });
+
 
 export default router;
