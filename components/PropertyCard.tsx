@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Property } from '../types';
 import { StarIcon, HeartIcon, ChevronLeftIcon, ChevronRightIcon } from './icons/CoreIcons';
+import { useLocalization } from '../hooks/useLocalization';
 
 interface PropertyCardProps {
   property: Property;
@@ -9,6 +10,7 @@ interface PropertyCardProps {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const navigate = useNavigate();
+  const { t } = useLocalization();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -76,11 +78,11 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             <span className="text-sm text-gray-800">{property.rating.toFixed(1)}</span>
           </div>
         </div>
-        <p className="text-sm text-gray-500">{property.distance} kilometers away</p>
+        <p className="text-sm text-gray-500">{property.distance} {t('kilometers_away')}</p>
         <p className="text-sm text-gray-500">{property.availableDates}</p>
         <p className="mt-1">
           <span className="font-semibold">${property.price}</span>
-          <span className="text-sm text-gray-800"> night</span>
+          <span className="text-sm text-gray-800"> {t('night')}</span>
         </p>
       </div>
     </div>

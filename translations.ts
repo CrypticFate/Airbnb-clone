@@ -1,21 +1,19 @@
-
 import type { Translations } from './types';
 
 export const translations: Translations = {
   // Header
-  'stays': { en: 'Stays', bn: 'থাকার জায়গা' },
+  'homes': { en: 'Homes', bn: 'বাড়ি' },
   'experiences': { en: 'Experiences', bn: 'অভিজ্ঞতা' },
+  'services': { en: 'Services', bn: 'সেবা' },
   'online_experiences': { en: 'Online Experiences', bn: 'অনলাইন অভিজ্ঞতা' },
   'airbnb_your_home': { en: 'Airbnb your home', bn: 'আপনার বাড়ি এয়ারবিএনবি করুন' },
   'anywhere': { en: 'Anywhere', bn: 'যেকোন স্থানে' },
   'any_week': { en: 'Any week', bn: 'যেকোন সপ্তাহ' },
   'add_guests': { en: 'Add guests', bn: 'অতিথি যোগ করুন' },
   'search': { en: 'Search', bn: 'অনুসন্ধান' },
-  'language': { en: 'Language', bn: 'ভাষা' },
-  'english': { en: 'English', bn: 'ইংরেজি' },
-  'bangla': { en: 'বাংলা', bn: 'বাংলা' },
   
   // Search Modal
+  'stays': { en: 'Stays', bn: 'থাকার জায়গা' }, // Keep this for the modal if needed
   'where_destination': { en: 'Where', bn: 'কোথায়' },
   'search_destinations': { en: 'Search destinations', bn: 'গন্তব্য অনুসন্ধান করুন' },
   'check_in': { en: 'Check in', bn: 'প্রবেশ' },
@@ -50,21 +48,8 @@ export const translations: Translations = {
   'careers': { en: 'Careers', bn: 'ক্যারিয়ার' },
   'investors': { en: 'Investors', bn: 'বিনিয়োগকারী' },
   'gift_cards': { en: 'Gift cards', bn: 'উপহার কার্ড' },
-  
-  // Property Detail Page
-  'back': { en: 'Back', bn: 'ফিরে' },
-  'share': { en: 'Share', bn: 'শেয়ার' },
-  'save': { en: 'Save', bn: 'সংরক্ষণ' },
-  'reserve': { en: 'Reserve', bn: 'রিজার্ভ' },
-  'what_this_place_offers': { en: 'What this place offers', bn: 'এই জায়গায় কী রয়েছে' },
-  'about_this_place': { en: 'About this place', bn: 'এই জায়গা সম্পর্কে' },
-  'where_youll_be': { en: 'Where you\'ll be', bn: 'আপনি কোথায় থাকবেন' },
-  'wifi': { en: 'Wifi', bn: 'ওয়াইফাই' },
-  'free_parking': { en: 'Free parking', bn: 'বিনামূল্যে পার্কিং' },
-  'air_conditioning': { en: 'Air conditioning', bn: 'এয়ার কন্ডিশনিং' },
+
+  // Property Card
+  'kilometers_away': { en: 'kilometers away', bn: 'কিলোমিটার দূরে' },
   'night': { en: 'night', bn: 'রাত' },
-  'total_before_taxes': { en: 'Total before taxes', bn: 'ট্যাক্স ছাড়া মোট' },
-  'cleaning_fee': { en: 'Cleaning fee', bn: 'পরিচ্ছন্নতার ফি' },
-  'service_fee': { en: 'Service fee', bn: 'সেবা ফি' },
-  'you_wont_be_charged_yet': { en: 'You won\'t be charged yet', bn: 'এখনই চার্জ করা হবে না' },
 };
