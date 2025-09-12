@@ -1,6 +1,5 @@
 import type { Property, FilterOptions } from '../types';
-
-const API_BASE_URL = 'http://localhost:5000/api';
+import { API_BASE_URL } from '../constants';
 
 interface ApiResponse {
   properties: Property[];

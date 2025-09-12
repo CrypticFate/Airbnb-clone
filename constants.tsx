@@ -3,6 +3,11 @@ import React from 'react';
 import type { Category } from './types';
 import { AmazingViewsIcon, TinyHomesIcon, ChefsKitchensIcon, SurfingIcon, MansionsIcon, LuxeIcon, TreehousesIcon, CampingIcon, BeachfrontIcon, FarmsIcon, CastlesIcon, IslandsIcon } from './components/icons/CategoryIcons';
 
+// API Base URL - automatically uses the correct URL for production and development
+export const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '/api' 
+  : 'http://localhost:5000/api';
+
 export const CATEGORIES: Category[] = [
   { id: 'amazing_views', label: { en: 'Amazing views', bn: 'আশ্চর্যজনক দৃশ্য' }, icon: AmazingViewsIcon },
   { id: 'tiny_homes', label: { en: 'Tiny homes', bn: 'ছোট বাড়ি' }, icon: TinyHomesIcon },
