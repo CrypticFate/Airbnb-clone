@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? [process.env.FRONTEND_URL, 'https://your-vercel-domain.vercel.app']
+    ? [process.env.FRONTEND_URL, 'https://airbnb-clone-2wuxw6use-sakeefs-projects-0b92c754.vercel.app', /\.vercel\.app$/]
     : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
   credentials: true
 }));
