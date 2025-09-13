@@ -3,8 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import propertyRoutes from './routes/propertyRoutes';
 import categoryRoutes from './routes/categoryRoutes';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Load environment variables
 dotenv.config();
