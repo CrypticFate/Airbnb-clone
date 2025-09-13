@@ -13,9 +13,7 @@ import { CATEGORIES } from './constants';
 const HomePage: React.FC = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [filters, setFilters] = useState<FilterOptions>({
-    category: CATEGORIES[0].id,
-  });
+  const [filters, setFilters] = useState<FilterOptions>({});
 
   const handleFilterChange = useCallback((newFilters: Partial<FilterOptions>) => {
     setFilters(prevFilters => ({ ...prevFilters, ...newFilters }));
@@ -45,7 +43,7 @@ const HomePage: React.FC = () => {
       <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 pt-40">
         <CategoryBar
           selectedCategory={filters.category}
-          onSelectCategory={(category) => handleFilterChange({ category })}
+          onSelectCategory={(category) => handleFilterChange({ category: category || undefined })}
         />
         <PropertyListings properties={properties} isLoading={isLoading} />
       </main>

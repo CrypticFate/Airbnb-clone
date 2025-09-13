@@ -20,7 +20,7 @@ export interface Property {
 }
 
 export interface FilterOptions {
-  category: string;
+  category?: string;
   location?: string;
   checkIn?: Date;
   checkOut?: Date;

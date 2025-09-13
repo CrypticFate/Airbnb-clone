@@ -3,7 +3,7 @@ import { CATEGORIES } from '../constants';
 import { useLocalization } from '../hooks/useLocalization';
 
 interface CategoryBarProps {
-  selectedCategory: string;
+  selectedCategory?: string;
   onSelectCategory: (categoryId: string) => void;
 }
 
