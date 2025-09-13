@@ -4,25 +4,9 @@ services:
   app:
     build: .
     ports:
-      - "5000:5000"
-    environment:
-      - NODE_ENV=development
-      - MONGODB_URI=mongodb://mongo:27017/airbnb-clone
-      - FRONTEND_URL=http://localhost:5000
-    depends_on:
-      - mongo
+      - "5173:5173"
     volumes:
       - .:/app
       - /app/node_modules
-
-  mongo:
-    image: mongo:7
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
     environment:
-      - MONGO_INITDB_DATABASE=airbnb-clone
-
-volumes:
-  mongo_data:
+      - NODE_ENV=development

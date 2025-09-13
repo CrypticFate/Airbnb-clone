@@ -23,6 +23,8 @@ export default defineConfig(({ mode }) => {
             manualChunks: undefined,
           },
         },
+        minify: 'esbuild',
+        sourcemap: false,
       },
       server: {
         port: 5173,
