@@ -10,8 +10,7 @@
     "server": "npx tsx server/server.ts",
     "seed": "npx tsx server/seedDatabase.ts",
     "build": "vite build",
-    "preview": "vite preview",
-    "vercel-build": "vite build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
