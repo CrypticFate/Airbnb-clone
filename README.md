@@ -2,7 +2,7 @@
 
 A modern, responsive Airbnb homepage clone built with React, TypeScript, and Tailwind CSS. This project features a beautiful UI with property listings, category filtering, and a fully functional frontend experience.
 
-![Airbnb Clone Preview](https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=400&fit=crop)
+
 
 ## ✨ Features
 
