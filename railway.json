@@ -4,6 +4,6 @@
     "buildCommand": "npm run build"
   },
   "deploy": {
-    "startCommand": "npx serve -s dist -l $PORT"
+    "startCommand": "npx http-server dist -p $PORT -s"
   }
 }
