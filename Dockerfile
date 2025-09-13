@@ -22,6 +22,9 @@ FROM nginx:alpine
 # Copy built app from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# Verify build output
+RUN ls -la /usr/share/nginx/html/
+
 # Copy nginx configuration for SPA
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
