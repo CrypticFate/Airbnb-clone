@@ -17,19 +17,19 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine
+FROM node:18-alpine
+
+# Install serve globally
+RUN npm install -g serve
 
 # Copy built app from build stage
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /app/dist
 
 # Verify build output
-RUN ls -la /usr/share/nginx/html/
-
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN ls -la /app/dist/
 
 # Expose port
 EXPOSE 5000
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start serve with SPA support
+CMD ["serve", "-s", "/app/dist", "-l", "5000"]
