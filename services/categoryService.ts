@@ -1,97 +1,53 @@
 import type { Category } from '../types';
-
-const API_BASE_URL = 'http://localhost:5000/api';
+import { CATEGORIES } from '../constants';
 
 export const fetchCategories = async (): Promise<Category[]> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 200));
 
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    
-    // Fallback to imported constants if API is not available
-    const { CATEGORIES } = await import('../constants');
-    return CATEGORIES;
-  }
+  return CATEGORIES;
 };
 
 export const fetchCategoryById = async (id: string): Promise<Category | null> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories/${id}`);
-    
-    if (response.status === 404) {
-      return null;
-    }
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 200));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching category by ID:', error);
-    return null;
-  }
+  const category = CATEGORIES.find(c => c.id === id);
+  return category || null;
 };
 
-export const createCategory = async (category: Omit<Category, '_id' | 'createdAt' | 'updatedAt'>): Promise<Category> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(category),
-    });
+export const createCategory = async (category: Omit<Category, 'id'>): Promise<Category> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+  const newCategory: Category = {
+    ...category,
+    id: Date.now().toString()
+  };
 
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating category:', error);
-    throw error;
-  }
+  CATEGORIES.push(newCategory);
+  return newCategory;
 };
 
-export const updateCategory = async (id: string, category: Partial<Category>): Promise<Category> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(category),
-    });
+export const updateCategory = async (id: string, updates: Partial<Category>): Promise<Category> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error updating category:', error);
-    throw error;
+  const index = CATEGORIES.findIndex(c => c.id === id);
+  if (index === -1) {
+    throw new Error('Category not found');
   }
+
+  CATEGORIES[index] = { ...CATEGORIES[index], ...updates };
+  return CATEGORIES[index];
 };
 
 export const deleteCategory = async (id: string): Promise<void> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories/${id}`, {
-      method: 'DELETE',
-    });
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 200));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error('Error deleting category:', error);
-    throw error;
+  const index = CATEGORIES.findIndex(c => c.id === id);
+  if (index !== -1) {
+    CATEGORIES.splice(index, 1);
   }
 };

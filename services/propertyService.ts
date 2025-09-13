@@ -1,143 +1,145 @@
 import type { Property, FilterOptions } from '../types';
-import { API_BASE_URL } from '../constants';
 
-interface ApiResponse {
-  properties: Property[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    pages: number;
-  };
-}
+// Mock properties data
+const mockProperties: Property[] = [
+  {
+    id: '1',
+    title: 'Beautiful Beachfront Villa',
+    location: 'Malibu, California',
+    distance: 25,
+    availableDates: 'Dec 15-20',
+    price: 250,
+    rating: 4.8,
+    images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400'],
+    category: 'beachfront'
+  },
+  {
+    id: '2',
+    title: 'Cozy Mountain Cabin',
+    location: 'Aspen, Colorado',
+    distance: 150,
+    availableDates: 'Jan 5-10',
+    price: 180,
+    rating: 4.6,
+    images: ['https://images.unsplash.com/photo-1449844908441-8829872d2607?w=400'],
+    category: 'treehouses'
+  },
+  {
+    id: '3',
+    title: 'Luxury Downtown Penthouse',
+    location: 'New York City, NY',
+    distance: 5,
+    availableDates: 'Nov 20-25',
+    price: 450,
+    rating: 4.9,
+    images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400'],
+    category: 'luxe'
+  },
+  {
+    id: '4',
+    title: 'Rustic Farmhouse',
+    location: 'Napa Valley, California',
+    distance: 80,
+    availableDates: 'Dec 1-5',
+    price: 120,
+    rating: 4.7,
+    images: ['https://images.unsplash.com/photo-1449844908441-8829872d2607?w=400'],
+    category: 'farms'
+  },
+  {
+    id: '5',
+    title: 'Modern Tiny Home',
+    location: 'Portland, Oregon',
+    distance: 200,
+    availableDates: 'Jan 15-20',
+    price: 85,
+    rating: 4.5,
+    images: ['https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400'],
+    category: 'tiny_homes'
+  },
+  {
+    id: '6',
+    title: 'Island Paradise Resort',
+    location: 'Maui, Hawaii',
+    distance: 500,
+    availableDates: 'Feb 1-7',
+    price: 350,
+    rating: 4.8,
+    images: ['https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400'],
+    category: 'islands'
+  }
+];
 
 export const fetchProperties = async (filters: FilterOptions): Promise<Property[]> => {
-  try {
-    const queryParams = new URLSearchParams();
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
 
-    if (filters.category) {
-      queryParams.append('category', filters.category);
-    }
-    
-    if (filters.location) {
-      queryParams.append('location', filters.location);
-    }
+  let filteredProperties = [...mockProperties];
 
-    if (filters.guests) {
-      const totalGuests = filters.guests.adults + filters.guests.children;
-      if (totalGuests > 0) {
-        queryParams.append('guests', totalGuests.toString());
-      }
-    }
-    
-    // --- FIX START: Add check-in and check-out dates to the query ---
-    if (filters.checkIn) {
-      queryParams.append('checkIn', filters.checkIn.toISOString());
-    }
-    if (filters.checkOut) {
-      queryParams.append('checkOut', filters.checkOut.toISOString());
-    }
-    // --- FIX END ---
-
-    // Add other potential filters
-    queryParams.append('limit', '20');
-    queryParams.append('page', '1');
-
-    const url = `${API_BASE_URL}/properties?${queryParams.toString()}`;
-    console.log('Fetching properties from URL:', url);
-    
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      console.error(`API response not OK: ${response.status} ${response.statusText}`);
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data: ApiResponse = await response.json();
-    return data.properties;
-  } catch (error) {
-    console.error('Error fetching properties:', error);
-    
-    // Fallback to empty array if API is not available
-    // In production, you might want to show an error message to the user
-    return [];
+  // Apply filters
+  if (filters.category) {
+    filteredProperties = filteredProperties.filter(property =>
+      property.category === filters.category
+    );
   }
+
+  if (filters.location) {
+    filteredProperties = filteredProperties.filter(property =>
+      property.location.toLowerCase().includes(filters.location!.toLowerCase())
+    );
+  }
+
+  if (filters.guests) {
+    const totalGuests = filters.guests.adults + filters.guests.children;
+    // For demo, just return all properties regardless of guest count
+    // In real app, you'd filter by capacity
+  }
+
+  return filteredProperties;
 };
 
 // ... (the rest of the file remains the same)
 
 export const fetchPropertyById = async (id: string): Promise<Property | null> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/properties/${id}`);
-    
-    if (response.status === 404) {
-      return null;
-    }
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching property by ID:', error);
-    return null;
-  }
+  const property = mockProperties.find(p => p.id === id);
+  return property || null;
 };
 
-export const createProperty = async (property: Omit<Property, '_id' | 'createdAt' | 'updatedAt'>): Promise<Property> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/properties`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(property),
-    });
+export const createProperty = async (property: Omit<Property, 'id'>): Promise<Property> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+  const newProperty: Property = {
+    ...property,
+    id: Date.now().toString()
+  };
 
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating property:', error);
-    throw error;
-  }
+  mockProperties.push(newProperty);
+  return newProperty;
 };
 
-export const updateProperty = async (id: string, property: Partial<Property>): Promise<Property> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/properties/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(property),
-    });
+export const updateProperty = async (id: string, updates: Partial<Property>): Promise<Property> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error updating property:', error);
-    throw error;
+  const index = mockProperties.findIndex(p => p.id === id);
+  if (index === -1) {
+    throw new Error('Property not found');
   }
+
+  mockProperties[index] = { ...mockProperties[index], ...updates };
+  return mockProperties[index];
 };
 
 export const deleteProperty = async (id: string): Promise<void> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/properties/${id}`, {
-      method: 'DELETE',
-    });
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error('Error deleting property:', error);
-    throw error;
+  const index = mockProperties.findIndex(p => p.id === id);
+  if (index !== -1) {
+    mockProperties.splice(index, 1);
   }
 };
